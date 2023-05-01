@@ -1,0 +1,103 @@
+body {
+  height: 400px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  height: 500px;
+}
+
+.input {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.aaa {
+  background: #000;
+}
+
+.containerKeyboard {
+  width: 100%;
+  height: 250px;
+  background-color: azure;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.keyboardArrayRow {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  background-color: rgb(231, 231, 231);
+  justify-content: space-between;
+}
+
+.usualBottomBlack {
+  width: 5%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.usualBottom {
+  width: 5%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.bigBlackBottom {
+  width: 9%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.tabBottom {
+  width: 9%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.doublUsualBottom {
+  width: 9%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.averegeBottom {
+  width: 9%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.hugeBottom {
+  width: 27%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.miniBottom {
+  width: 5%;
+  height: 70%;
+  border: 1px solid black;
+  border-radius: 5px 5px;
+}
+
+.letterEsc {
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+  margin: 5px;
+}
+
+/* .subBottom {
+  border-radius: 10px 10px;
+} */
