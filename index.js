@@ -477,7 +477,7 @@ for (let i = 0; i < keyboardArray.length; i++){
 // }
 
 link.setAttribute("rel", "stylesheet");
-link.setAttribute("href", "/style.css");
+link.setAttribute("href", "./style.css");
 head.appendChild(link);
 
 container.appendChild(input);
