@@ -1,76 +1,3 @@
-// const keyboardArrayRow1 = [
-//   {
-//     className: 'miniBottom',
-//     value: "esc",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F1",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F2",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F3",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F4",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F5",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F6",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F7",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F8",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F9",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F10",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F11",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "F12",
-//     subValue: "",
-//   },
-//   {
-//     className: 'miniBottom',
-//     value: "Off",
-//     subValue: "",
-//   }
-// ];
-
 const keyboardArray = [
   [
     {
@@ -83,68 +10,80 @@ const keyboardArray = [
     {
       className: 'usualBottom',
       value: 1,
+      valueRu: 1,
       subValue: "!"
     },
     {
       className: 'usualBottom',
       value: 2,
+      valueRu: 2,
       subValue: "@",
       subValueRu: '"',
     },
     {
       className: 'usualBottom',
       value: 3,
+      valueRu: 3,
       subValue: "#",
       subValueRu: "№",
     },
     {
       className: 'usualBottom',
       value: 4,
+      valueRu: 4,
       subValue: "$",
       subValueRu: "%",
     },
     {
       className: 'usualBottom',
       value: 5,
+      valueRu: 5,
       subValue: "%",
       subValueRu: ":",
     },
     {
       className: 'usualBottom',
       value: 6,
+      valueRu: 6,
       subValue: "^",
       subValueRu: ",",
     },
     {
       className: 'usualBottom',
       value: 7,
+      valueRu: 7,
       subValue: "&",
       subValueRu: ".",
     },
     {
       className: 'usualBottom',
       value: 8,
+      valueRu: 8,
       subValue: "*",
       subValueRu: ";",
     },
     {
       className: 'usualBottom',
       value: 9,
+      valueRu: 9,
       subValue: "(",
     },
     {
       className: 'usualBottom',
       value: 0,
+      valueRu: 0,
       subValue: ")",
     },
     {
       className: 'usualBottom',
       value: "-",
+      valueRu: "-",
       subValue: "_",
     },
     {
       className: 'usualBottom',
       value: "=",
+      valueRu: "=",
       subValue: "+",
     },
     {
@@ -412,7 +351,12 @@ const keyboardArray = [
       value: "right",
     },
   ]
-]
+];
+
+let curentLeng = 'EN';
+let selectionStart = null;
+let selectionEnd = null;
+
 
 
 const head = document.querySelector("head");
@@ -427,6 +371,26 @@ containerKeyboard.className = "containerKeyboard";
 
 const input = document.createElement("textarea");
 input.className = "input";
+
+input.onselect = function() {
+  selectionStart = input.selectionStart
+  selectionEnd = input.selectionEnd
+}
+
+input.oninput = function() {
+  selectionStart = input.selectionStart
+  selectionEnd = input.selectionEnd
+}
+
+input.onclick = function() {
+  selectionStart = input.selectionStart
+  selectionEnd = input.selectionEnd
+}
+
+input.onfocus = function() {
+  selectionStart = input.selectionStart
+  selectionEnd = input.selectionEnd
+}
 
 for (let i = 0; i < keyboardArray.length; i++){
   const currentKeyboardRow = document.createElement("div");
@@ -446,6 +410,59 @@ for (let i = 0; i < keyboardArray.length; i++){
     // помещаем кнопку в строчку
     button.appendChild(subBottom);
     button.appendChild(subBottomRu);
+    button.addEventListener("click", () => {
+      if (curentLeng === "EN") {
+        if(keyboardArray[i][j].value === "Backspace") {
+          let initSelectionStart = selectionStart + -1;
+            if(selectionEnd === selectionStart) {
+              selectionStart = selectionStart - 1;
+            }
+            let inputStr = input.value.split('');
+            while (selectionStart < selectionEnd) {
+              inputStr[selectionStart] = null;
+              selectionStart++;
+            }
+            inputStr = inputStr.join('');
+            input.value = inputStr;
+            input.focus();
+            input.selectionStart = initSelectionStart;
+            input.selectionEnd = initSelectionStart;
+        } else if (keyboardArray[i][j].value === "Enter") {
+          input.value += '\n';
+          input.focus();
+        } else if (keyboardArray[i][j].value === "Escape") {
+          input.value += ' ';
+          input.focus();
+        } else {
+          input.value += keyboardArray[i][j].value
+        }
+      } else {
+        if(keyboardArray[i][j].value === "Backspace") {
+          let initSelectionStart = selectionStart + -1;
+            if(selectionEnd === selectionStart) {
+              selectionStart = selectionStart - 1;
+            }
+            let inputStr = input.value.split('');
+            while (selectionStart < selectionEnd) {
+              inputStr[selectionStart] = null;
+              selectionStart++;
+            }
+            inputStr = inputStr.join('');
+            input.value = inputStr;
+            input.focus();
+            input.selectionStart = initSelectionStart;
+            input.selectionEnd = initSelectionStart;
+        } else if (keyboardArray[i][j].value === "Enter") {
+          input.value += '\n';
+          input.focus();
+        } else if (keyboardArray[i][j].value === "Escape") {
+          input.value += ' ';
+          input.focus();
+        } else {
+          input.value += keyboardArray[i][j].valueRu
+        }
+      }
+    })
     currentKeyboardRow.appendChild(button);
   }
   // помещаем строчку в клавиатурк 
@@ -467,8 +484,65 @@ container.appendChild(input);
 container.appendChild(containerKeyboard);
 body.appendChild(container);
 
-body.onkeydown = function (event) {
-  if (event.key == 'Control' && event.key == 'Space') {
-    console.log('RU')
-  }
+
+function runOnKeys(func, ...codes) {
+  let pressed = new Set();
+
+  document.addEventListener('keydown', function(event) {
+    pressed.add(event.code);
+
+    for (let code of codes) {
+      if (!pressed.has(code)) {
+        return;
+      }
+    }
+    pressed.clear();
+
+    func();
+  });
+  document.addEventListener('keyup', function(event) {
+    pressed.delete(event.code);
+  });
+
 }
+
+runOnKeys(
+  () => {
+
+    if (curentLeng === "EN") {
+      const keyboardArrayRowArray = document.querySelectorAll(".keyboardArrayRow");
+      for (let i = 0; i < keyboardArray.length; i++) {
+        const currentKeyboardRow = keyboardArrayRowArray[i].childNodes;
+        for (let j = 0; j < currentKeyboardRow.length; j++) {
+          let curentButton = currentKeyboardRow[j].childNodes[0];
+          let curentButtonSub = currentKeyboardRow[j].childNodes[1];
+          if (keyboardArray[i][j].valueRu) {
+            curentButton.innerHTML = keyboardArray[i][j].valueRu;
+          }
+          if (keyboardArray[i][j].subValueRu) {
+            curentButtonSub.innerHTML = keyboardArray[i][j].subValueRu;
+          }
+        }
+      }
+      curentLeng = "RU";
+    } else {
+      const keyboardArrayRowArray = document.querySelectorAll(".keyboardArrayRow");
+      for (let i = 0; i < keyboardArray.length; i++) {
+        const currentKeyboardRow = keyboardArrayRowArray[i].childNodes;
+        for (let j = 0; j < currentKeyboardRow.length; j++) {
+          let curentButton = currentKeyboardRow[j].childNodes[0];
+          let curentButtonSub = currentKeyboardRow[j].childNodes[1];
+          if (keyboardArray[i][j].value) {
+            curentButton.innerHTML = keyboardArray[i][j].value;
+          }
+          if (keyboardArray[i][j].subValueRu) {
+            curentButtonSub.innerHTML = keyboardArray[i][j].subValue;
+          }
+        }
+      }
+      curentLeng = "EN";
+    }
+  },
+  "ControlLeft",
+  "Space"
+);
